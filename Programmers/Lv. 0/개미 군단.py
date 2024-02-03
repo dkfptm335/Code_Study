@@ -10,6 +10,10 @@
 def solution(hp):
     answer = 0
     
+    general = hp // 5
+    soldier = (hp % 5) // 3
+    ant = (hp % 5) % 3
     
+    answer = general + soldier + ant
     
     return answer
