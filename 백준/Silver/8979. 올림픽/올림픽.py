@@ -1,13 +1,13 @@
-import sys
+N, K = map(int, input().split())
 
-N, K = map(int, sys.stdin.readline().strip().split())
-medalScoresDict = {i: list(map(int, sys.stdin.readline().strip().split())) for i in range(1, N + 1)}
-medalScores = sorted(medalScoresDict.items(), key=lambda x: (-x[1][0], -x[1][1], -x[1][2]))
-ranks = [1]
-for i in range(1, N):
-    if medalScores[i][1] == medalScores[i - 1][1]:
-        ranks.append(ranks[-1])
-    else:
-        ranks.append(len(ranks) + 1)
+medals = [list(map(int, input().split())) for _ in range(N)]
+    
+medals.sort(key = lambda x : (x[1], x[2], x[3]), reverse=True)
 
-print(ranks[medalScores.index((K, medalScoresDict[K]))])
+idx = [medals[i][0] for i in range(N)].index(K)
+
+for i in range(N):
+    if medals[idx][1:] == medals[i][1:]:
+        print(i+1)
+        break
+# 출처: https://develop247.tistory.com/234 [재냥이😻:티스토리]
