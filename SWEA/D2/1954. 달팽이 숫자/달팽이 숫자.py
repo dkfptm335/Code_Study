@@ -1,43 +1,45 @@
 T = int(input())
-test_cases = {}
 
 for i in range(T):
     N = int(input())
-    # N by N 배열 생성
-    test_cases[i] = [[0] * N for _ in range(N)]
+    # N * N 행렬 생성
+    answer = [[0 for _ in range(N)] for _ in range(N)]
 
-    # 현재 좌표
-    x, y = 0, 0
-    # 방향
-    direction = 'R'
-    for j in range(1, N**2 + 1):
-        test_cases[i][x][y] = j
-        if direction == 'R':
-            if y + 1 < N and test_cases[i][x][y + 1] == 0:
+    x, y, num = 0, 0, 1
+    direction = "right"
+
+    while num <= N ** 2:
+        answer[x][y] = num
+        num += 1
+
+        if direction == "right":
+            if y + 1 < N and answer[x][y + 1] == 0:
                 y += 1
             else:
-                direction = 'D'
+                direction = "down"
                 x += 1
-        elif direction == 'D':
-            if x + 1 < N and test_cases[i][x + 1][y] == 0:
+
+        elif direction == "down":
+            if x + 1 < N and answer[x + 1][y] == 0:
                 x += 1
             else:
-                direction = 'L'
+                direction = "left"
                 y -= 1
-        elif direction == 'L':
-            if y - 1 >= 0 and test_cases[i][x][y - 1] == 0:
+
+        elif direction == "left":
+            if y - 1 >= 0 and answer[x][y - 1] == 0:
                 y -= 1
             else:
-                direction = 'U'
+                direction = "up"
                 x -= 1
-        elif direction == 'U':
-            if x - 1 >= 0 and test_cases[i][x - 1][y] == 0:
+
+        elif direction == "up":
+            if x - 1 >= 0 and answer[x - 1][y] == 0:
                 x -= 1
             else:
-                direction = 'R'
+                direction = "right"
                 y += 1
 
-for i in range(T):
-    print(f'#{i + 1}')
-    for j in range(len(test_cases[i])):
-        print(*test_cases[i][j])
+    print(f"#{i + 1}")
+    for j in range(N):
+        print(" ".join(map(str, answer[j])))
